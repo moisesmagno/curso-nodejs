@@ -1,31 +1,34 @@
-const express = require('express');
+const express = require("express");
+const nunjucks = require("nunjucks");
 
 const app = express();
 
-//Midlaware - Interseptadores.
-const logMidlaware = (req, res, next) => {
-    console.log(`HOST: ${req.headers.host} | URL: ${req.url} | METHOD: ${req.method}`);
+nunjucks.configure("views", {
+    autoescape: true,
+    express: app,
+    watch: true
+});
 
-    // O next não trava o midleware, o mesmo deixa o fluxo fluir e as requisições seguintes funcionarem.      
-    return next();
-}
+//Para que o express saiba le dar com os dados provenientes de um formulári. IMPORTANTE!
+app.use(express.urlencoded({
+    exteded: false
+}));
 
-app.use(logMidlaware);
+app.set("view engine", "njk");
+
+const users = ['Moisés', 'Henrique', 'Davi', 'Fabiano'];
 
 app.get('/', (req, res) => {
-    return res.send("<h1>HOME</h1>");
+    return res.render("list", {users});
+});
+
+app.get('/new-user', (req, res) => {
+    return res.render("new");
+});
+
+app.post('/create', (req, res) => {
+    users.push(req.body.name);
+    res.render('list', {users});
 })
-
-app.get('/login/:name', (req, res) => {
-    return res.send(`Welcome ${req.params.name}`);
-});
-
-app.get('/compra', (req, res) => {
-    return res.json({
-        produto: req.query.produto,
-        quantidade: req.query.quantidade,
-        valor: req.query.valor
-    });
-});
 
 app.listen(3000);
