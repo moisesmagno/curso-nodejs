@@ -11,6 +11,7 @@
     "nunjucks": "^3.1.4"
   },
   "devDependencies": {
+    "eslint": "^5.9.0",
     "nodemon": "^1.18.6"
   }
 }
