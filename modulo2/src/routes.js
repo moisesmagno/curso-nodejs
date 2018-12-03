@@ -1,7 +1,9 @@
 const express = require('express');
 
 const routes = express.Router();
+const userController = require('./app/controllers/UserController');
 
-routes.get('/', (req, res) => res.render('auth/singup'));
+routes.get('/signup', userController.create);
+routes.post('/signup', userController.store);
 
 module.exports = routes;
