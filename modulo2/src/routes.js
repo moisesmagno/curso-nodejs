@@ -14,6 +14,7 @@ const userController = require('./app/controllers/UserController');
 const sessionController = require('./app/controllers/SessionController');
 const dashboardController = require('./app/controllers/DashboardController');
 const fileController = require('./app/controllers/FileController');
+const appointmentsController = require('./app/controllers/AppointmentsController');
 
 // Configurando algumas variaveis globais de mensagens, para que as views possam visualizar. 
 routes.use((req, res, next) => {
@@ -33,8 +34,10 @@ routes.post('/signup', upload.single('avatar'), userController.store);
 // Aplica o middleware 'authMiddleware' para todas as URLs que começam com /app.
 routes.use('/app', authMiddleware);
 
-routes.get('/app/logout', sessionController.destroy)
+routes.get('/app/logout', sessionController.destroy);
 
 routes.get('/app/dashboard', dashboardController.index);
+
+routes.get('/app/appointments/new/:provider', appointmentsController.create);
 
 module.exports = routes;
