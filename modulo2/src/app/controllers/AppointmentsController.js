@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Appointment } = require('../models');
 
 class AppointmentsController {
 
@@ -8,6 +8,21 @@ class AppointmentsController {
 
         return res.render('appointments/create', {provider});
 
+    }
+
+    async store(req, res){
+        
+        const { id } = req.session.user;
+        const { provider } = req.params;
+        const { date } = req.body;
+
+        await Appointment.create({
+            user_id: id,
+            provider_id: provider,
+            date
+        });
+
+        return res.redirect('/app/dashboard');
     }
 
 }

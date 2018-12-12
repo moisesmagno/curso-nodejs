@@ -40,6 +40,8 @@ routes.get('/app/logout', sessionController.destroy);
 routes.get('/app/dashboard', dashboardController.index);
 
 routes.get('/app/appointments/new/:provider', appointmentsController.create);
+routes.post('/app/appointments/new/:provider', appointmentsController.store);
+
 routes.get("/app/available/:provider", availableController.index);
 
 module.exports = routes;
