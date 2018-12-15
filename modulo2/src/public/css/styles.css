@@ -184,13 +184,15 @@ body {
   color: #444;
 }
 
-ul.providers {
+ul.providers,
+ul.customers {
   list-style: none;
   display: flex;
   flex-direction: column;
 }
 
-.provider {
+.provider,
+.customer {
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -200,23 +202,27 @@ ul.providers {
   justify-content: space-between;
 }
 
-.provider div {
+.provider div,
+.customer div {
   display: flex;
   align-items: center;
 }
 
-.provider img {
+.provider img,
+.customer img {
   width: 48px;
   height: 48px;
   border-radius: 50%;
 }
 
-.provider strong {
+.provider strong,
+.customer strong {
   margin-left: 15px;
   color: #444;
 }
 
-.provider a {
+.provider a,
+.customer a {
   background: #7159c1;
   padding: 5px 10px;
   font-weight: bold;
@@ -241,10 +247,32 @@ ul.providers {
   border-color: #96e89c;
 }
 
-#hours {
+#hours,
+#customers {
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid #eee;
+}
+
+.env_customers{
+  display: flex;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+.env_customers img{
+  flex-shrink: 1;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.env_customers ul{
+  list-style: none;
 }
 
 #hours label {

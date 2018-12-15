@@ -1,0 +1,13 @@
+{% for appointment in appointments %}
+
+    <div class="env_customers">
+        <img src="/files/{{ appointment.user.avatar }}" alt="">
+        <ul>
+            <li><strong>{{ appointment.user.name }}</strong></li>
+            <li>{{ appointment.date }}</li>
+        </ul>
+    </div>
+
+{% endfor %}
+
+

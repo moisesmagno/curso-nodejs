@@ -1,6 +1,6 @@
 const express = require('express');
 const session = require('express-session');
-const fileSotre = require('session-file-store')(session);
+const fileStore = require('session-file-store')(session);
 const nunjucks = require('nunjucks');
 const path = require('path');
 const flash = require('connect-flash');
@@ -16,17 +16,18 @@ class App {
     }
 
     middlewares() {
-        this.express.use(express.urlencoded({ extended: false }));
+        this.express.use(express.urlencoded({ extended: false })); // Para receber dados de formularios
         this.express.use(flash());
         this.express.use(session({
             name: 'root',
             secret: 'MyAppSecret',
             resave: true,
-            store: new fileSotre({
+            store: new fileStore({
                 path: path.resolve(__dirname, '..', 'temp', 'sessions')
             }),
             saveUninitialized : true
         })) ;
+
     }
 
     views() {

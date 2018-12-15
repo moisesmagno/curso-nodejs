@@ -10,7 +10,7 @@ class SessionController {
         const { email, password } = req.body;
 
         const user = await User.findOne({where: { email }});
-
+ 
         if(!user){
             req.flash('error','Usuário não encontrado!');
             return res.redirect('/');
@@ -24,12 +24,18 @@ class SessionController {
         // Armazenando os dados do usuário na sessão.
         req.session.user = user;
 
-        return res.redirect('/app/dashboard');
+        if(user.provider == true){
+            return res.redirect('/app/dashboard-provider');
+        }else{
+            return res.redirect('/app/dashboard');
+        }
+        
     }
 
     destroy(req, res){
         req.session.destroy(()=>{
             res.clearCookie('root');
+            res.locals = '';
             return res.redirect('/');
         });
     }
