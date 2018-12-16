@@ -261,6 +261,7 @@ ul.customers {
   margin-bottom: 15px;
   border-bottom: 1px solid #eee;
   padding-bottom: 5px;
+  align-items: center;
 }
 
 .env_customers img{

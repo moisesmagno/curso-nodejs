@@ -4,7 +4,7 @@
         <img src="/files/{{ appointment.user.avatar }}" alt="">
         <ul>
             <li><strong>{{ appointment.user.name }}</strong></li>
-            <li>{{ appointment.date }}</li>
+            <li>{{ appointment.date | date("HH:mm") }}</li>
         </ul>
     </div>
 

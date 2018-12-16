@@ -22,9 +22,9 @@ class CustomerController{
         }); 
 
        
-        // appointments.map(a => {
-        //     let hora = moment(a.date).format('H:mm');
-        // });
+        appointments.map(a => {
+            let hora = moment(a.date).format('H:mm');
+        });
 
        res.render('customers/index', {appointments});
 
