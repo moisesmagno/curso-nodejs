@@ -1,4 +1,4 @@
-const { User } = require("../models/user");
+const User = require("../models/user");
 
 class UserController{
 
@@ -11,12 +11,11 @@ class UserController{
             });
         }
 
-        const user = User.create(req.body);
+        const user = await User.create(req.body);
 
         return res.json(user);
     }
 
 }
-
 
 module.exports = new UserController();
