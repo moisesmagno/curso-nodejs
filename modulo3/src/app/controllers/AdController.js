@@ -4,7 +4,33 @@ class AdController {
 
     async index(req, res){
 
-        const ads = await Ad.find();
+        const filters = {}
+
+        if(req.query.price_min || req.query.price_max){
+            filters.price = {}
+
+            if(req.query.price_min){
+                filters.price.$gte = req.query.price_min;
+            }
+
+            if(req.query.price_max){
+                filters.price.$lte = req.query.price_max;
+            }
+        }
+
+        if(req.query.title){
+            filters.title = new RegExp(req.query.title), 'i';
+        }
+
+        const ads = await Ad.paginate(
+            filters,
+            {
+                page: req.query.page || 1,
+                limit: 5,
+                populate: ['author'], //No populate, pode se informar para retornar, os dados dos relacionamento.
+                sort: '-createdAt'
+            }
+        );
 
         return res.json(ads);
 
