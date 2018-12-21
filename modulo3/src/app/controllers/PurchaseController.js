@@ -1,6 +1,8 @@
 const User = require("../models/user");
 const Ad = require('../models/Ad');
 const Mail = require('../services/Mail');
+const PurchaseMail = require('../jobs/PurchaseMail');
+const Queue = require('../services/Queue');
 
 class PurchaseController{
 
@@ -11,12 +13,11 @@ class PurchaseController{
         const purchaseAd = await Ad.findById(ad).populate('author');
         const user = await User.findById(req.userId);
 
-        await Mail.sendMail({
-            from: '"gonode3" <gonode3@gmail.com>',
-            to: purchaseAd.author.email,
-            subject: `Solicitação de compra - ${purchaseAd.title}`,
-            html: `<h2>Olá ${purchaseAd.author.name}</h2><br><p>Você tem uma solicitação de compra do produto <strong> ${purchaseAd.title} </strong> por parte de <strong>${user.name}</strong>. <br><br>Segue a observação enviada pelo interessado: <br> ${content}<p>`
-        });
+        Queue.create(PurchaseMail.key, {
+            ad: purchaseAd,
+            user,
+            content
+        }).save();
 
         return res.json({ sednMail: true});
     }
