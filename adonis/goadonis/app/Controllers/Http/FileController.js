@@ -5,6 +5,18 @@ const Helpers = use('Helpers')
 
 class FileController {
 
+  async show ({ response, params }) {
+    try {
+
+      const file = await File.findOrFail(params.id)
+
+      return response.download(Helpers.tmpPath(`upload/${file.file}`))
+
+    } catch (err) {
+      return response.status(err.status).send({error: {message: 'Arquivo não encontrado.'}})
+    }
+  }
+
   /**
    * Create/save a new file.
    * POST files
