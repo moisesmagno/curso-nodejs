@@ -1,11 +1,10 @@
 'use strict'
 
-/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
 class Task extends Model {
 
-  use () {
+  user () {
     // Uma tarefa pertence a um usuário.
     return this.belongsTo('App/Models/User')
   }
