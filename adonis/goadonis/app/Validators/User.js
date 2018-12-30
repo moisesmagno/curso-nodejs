@@ -1,5 +1,7 @@
 'use strict'
 
+const Antl = use('Antl')
+
 class User {
 
   // Valida todas as regras de vez. "IMPORTANTE"
@@ -14,6 +16,11 @@ class User {
       password: "required|confirmed"
     }
   }
+
+  get messages () {
+    return Antl.list('validation')
+  }
+
 }
 
 module.exports = User

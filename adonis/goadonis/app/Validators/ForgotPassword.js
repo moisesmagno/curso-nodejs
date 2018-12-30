@@ -1,5 +1,7 @@
 'use strict'
 
+const Antl = use('Antl')
+
 class ForgotPassword {
   // Valida todas as regras de vez. "IMPORTANTE"
   get validateAll () {
@@ -11,6 +13,10 @@ class ForgotPassword {
       email: 'required|email',
       redirect_url: 'required|url'
     }
+  }
+
+  get messages () {
+    return Antl.list('validation')
   }
 }
 

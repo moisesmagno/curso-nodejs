@@ -1,5 +1,7 @@
 'use strict'
 
+const Antl = use('Antl')
+
 class Project {
   // Valida todas as regras de vez. "IMPORTANTE"
   get validateAll () {
@@ -11,6 +13,10 @@ class Project {
       title: 'required',
       description: 'required'
     }
+  }
+
+  get messages () {
+    return Antl.list('validation')
   }
 }
 

@@ -1,5 +1,7 @@
 'use strict'
 
+const Antl = use('Antl')
+
 class Session {
   // Valida todas as regras de vez. "IMPORTANTE"
   get validateAll () {
@@ -11,6 +13,10 @@ class Session {
       email: "required|email",
       password: "required"
     }
+  }
+
+  get messages () {
+    return Antl.list('validation')
   }
 }
 
