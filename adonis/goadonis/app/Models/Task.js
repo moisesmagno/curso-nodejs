@@ -4,6 +4,13 @@ const Model = use('Model')
 
 class Task extends Model {
 
+  static boot () {
+    super.boot()
+
+    this.addHook('afterCreate', 'TaskHook.sendNewTaskMail')
+    this.addHook('afterUpdate', 'TaskHook.sendNewTaskMail')
+  }
+
   user () {
     // Uma tarefa pertence a um usuário.
     return this.belongsTo('App/Models/User')
