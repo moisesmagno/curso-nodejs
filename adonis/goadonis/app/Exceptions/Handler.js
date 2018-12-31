@@ -1,5 +1,8 @@
 'use strict'
 
+// const Raven = require('raven')
+const Sentry = require('@sentry/node');
+const Config = use('Config')
 const Env = use('Env')
 const Youch = use('Youch')
 
@@ -52,7 +55,8 @@ class ExceptionHandler extends BaseExceptionHandler {
    * @return {void}
    */
   async report (error, { request }) {
-    console.log(error)
+      Sentry.init(Config.get('services.sentry'))
+      Sentry.captureException(error)
   }
 }
 
