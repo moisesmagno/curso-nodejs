@@ -8,21 +8,21 @@ app.use(express.json());
 let cont = 0;
 
 //Midlawares Globais
-app.use((req, res, next) => {
+function logRequests(req, res, next) {
   next();
 
   console.log((cont += 1));
-});
+}
+
+app.use(logRequests);
 
 //Midlawares
 function checkIdProject(req, res, next) {
   const { id } = req.params;
 
-  const idProject = projects.filter(project => {
-    return project.id === id;
-  });
+  const idProject = projects.find(project => project.id === id);
 
-  if (idProject.length === 0) {
+  if (!idProject) {
     return res.status(400).json({ erro: "Project not found!" });
   }
 
@@ -60,11 +60,11 @@ app.put("/projects/:id", checkIdProject, (req, res) => {
 app.delete("/projects/:id", checkIdProject, (req, res) => {
   const { id } = req.params;
 
-  projects.map((project, index) => {
-    if (project.id === id) {
-      projects.splice(index, 1);
-    }
+  const projectIndex = projects.findIndex(project => {
+    return project.id === id;
   });
+
+  projects.splice(projectIndex, 1);
 
   return res.json(projects);
 });
@@ -74,11 +74,9 @@ app.post("/projects/:id/tasks", checkIdProject, (req, res) => {
   const { id } = req.params;
   const { title } = req.body;
 
-  const projectAll = projects.filter(project => {
-    if (project.id === id) {
-      return project.tasks.push(title);
-    }
-  });
+  const projectAll = projects.find(project => project.id === id);
+
+  projectAll.tasks.push(title);
 
   return res.json(projectAll);
 });
