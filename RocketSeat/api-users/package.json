@@ -1,0 +1,17 @@
+{
+  "name": "Modulo1",
+  "version": "1.0.0",
+  "description": "Modulo de Node.js",
+  "main": "index.js",
+  "author": "Moisés",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
